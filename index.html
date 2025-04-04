@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descarga Social</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: url('fondo.png') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .header-img {
+            width: 250px;
+            position: relative;
+            margin-bottom: -40px;
+            z-index: 2;
+        }
+        .container {
+            background: linear-gradient(135deg, #d1a3ff, #7a00ff);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 350px;
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            color: white;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .info-text {
+            color: white;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .social-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            align-items: flex-start;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            padding: 10px;
+            background-color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            gap: 10px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+        .social-link span {
+            font-size: 16px;
+        }
+        #unlock-button, #download-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            background-color: #007acc;
+            display: block;
+        }
+        #download-button {
+            display: none;
+            background-color: #28a745;
+        }
+
+        .checkmark {
+            color: #28a745;
+            font-size: 20px;
+            margin-left: auto;
+            display: none;
+        }
+        .social-link.completed .checkmark {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <img class="header-img" src="vilu.png" alt="Vilu Gontero">
+        <div class="container">
+            <h2>VILU GONTERO</h2>
+            <p class="info-text">Para acceder al link de descarga debes seguir los siguientes pasos</p>
+            <div class="social-icons">
+                <a class="social-link" id="link-instagram" href="https://www.instagram.com/vilugontero/" target="_blank" onclick="completeAction('instagram')">
+                    <img src="instagram.png" alt="Instagram"><span>Seguir en Instagram</span><span class="checkmark">✔️</span>
+                </a>
+                <a class="social-link" id="link-spotify" href="https://open.spotify.com/artist/5bPIRYYgVG70w7LNFW8a9P?si=UjOLlKeASB60ZWKZdO5_9w" target="_blank" onclick="completeAction('spotify')">
+                    <img src="spotify.png" alt="Spotify"><span>Seguir en Spotify</span><span class="checkmark">✔️</span>
+                </a>
+                <a class="social-link" id="link-tiktok" href="https://www.tiktok.com/@vilugontero" target="_blank" onclick="completeAction('tiktok')">
+                    <img src="tiktok.png" alt="TikTok"><span>Seguir en TikTok</span><span class="checkmark">✔️</span>
+                </a>
+                <a class="social-link" id="link-youtube" href="https://youtube.com/c/vilugontero" target="_blank" onclick="completeAction('youtube')">
+                    <img src="youtube.png" alt="YouTube"><span>Seguir en YouTube</span><span class="checkmark">✔️</span>
+                </a>
+            </div>
+            <button id="unlock-button" onclick="checkUnlock()">Downloads</button>
+            <a id="download-button" href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbkZGUmpwTE9sYUZCODk4TGNERk5qOEpKVVptQXxBQ3Jtc0tub3ZUNjBVZXVxOWdkaFBXcTBSdTQzUG90blozSkFnM2JxaEtxbEN0QTRzUTNQb1F3UHVjZXpRRDRMclptZm1SeVdRdEp2d2pnYlBLbFgzOUt5eGd2RTlVbEpFZjhzS1Y2TnB2ZlhXaXV5cHJZbEdBdw&q=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1w2VrnjkGOijTPQUrod-ne7W3SMSope6s%3Fusp%3Dsharing&v=IOGYbK404d8" target="_blank">Descargar</a>
+        </div>
+    </div>
+
+    <script>
+        let actionsCompleted = {
+            instagram: false,
+            spotify: false,
+            tiktok: false,
+            youtube: false
+        };
+
+        function completeAction(platform) {
+            actionsCompleted[platform] = true;
+
+            const link = document.getElementById(`link-${platform}`);
+            if (link) {
+                link.classList.add("completed");
+            }
+        }
+
+        function checkUnlock() {
+            if (Object.values(actionsCompleted).every(status => status)) {
+                document.getElementById("download-button").style.display = "block";
+                document.getElementById("unlock-button").style.display = "none";
+            } else {
+                alert("Debes seguir todas las cuentas antes de desbloquear la descarga.");
+            }
+        }
+    </script>
+</body>
+</html>
